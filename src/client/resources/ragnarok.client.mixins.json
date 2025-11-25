@@ -1,9 +1,10 @@
 {
 	"required": true,
-	"package": "com.example.mixin.client",
+	"package": "com.ragnarok.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-		"ExampleClientMixin"
+		"TitleScreenMixin",
+		"YggdrasilAuthenticationServiceMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
