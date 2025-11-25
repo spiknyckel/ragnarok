@@ -1,13 +1,10 @@
 package com.ragnarok.mixin.client;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.minecraft.MinecraftSessionService;
+import com.mojang.authlib.HttpAuthenticationService;
 import com.mojang.authlib.minecraft.client.MinecraftClient;
-import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService;
 import com.mojang.authlib.yggdrasil.YggdrasilMinecraftSessionService;
 import com.ragnarok.RagnarokRequest;
 import com.ragnarok.config.AuthConfig;
-import net.minecraft.client.gui.screen.multiplayer.AddServerScreen;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -24,15 +21,16 @@ public abstract class YggdrasilMinecraftSessionServiceMixin {
 
     @Shadow @Final private URL joinUrl;
 
-    @Inject(method = "joinServer", at = @At(value = "RETURN"), cancellable = true)
+    @Inject(method = "joinServer", at = @At(value = "HEAD"), cancellable = true)
     private void joinServer(UUID profileId, String authenticationToken, String serverId, CallbackInfo ci) {
-        if (!AuthConfig.authString.isEmpty()) {
+        if (!AuthConfig.authString.isEmpty() && !AuthConfig.authServer.isEmpty() && !AuthConfig.uuid.isEmpty()) {
             RagnarokRequest request = new RagnarokRequest();
             request.accessToken = authenticationToken;
-            request.selectedProfile = profileId;
+            request.selectedProfile = UUID.fromString(AuthConfig.uuid);
             request.serverId = serverId;
             request.authString = AuthConfig.authString;
-            this.client.post(joinUrl, request, Void.class);
+            URL j = HttpAuthenticationService.constantURL(AuthConfig.authServer + "/session/minecraft/join");
+            this.client.post(j, request, Void.class);
             ci.cancel();
         }
     }

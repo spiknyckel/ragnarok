@@ -4,7 +4,7 @@
 	"compatibilityLevel": "JAVA_21",
 	"client": [
 		"TitleScreenMixin",
-		"YggdrasilAuthenticationServiceMixin"
+		"YggdrasilMinecraftSessionServiceMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

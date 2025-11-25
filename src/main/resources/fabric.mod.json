@@ -1,9 +1,9 @@
 {
 	"schemaVersion": 1,
-	"id": "modid",
+	"id": "ragnarok",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Ragnarök",
+	"description": "Authing",
 	"authors": [
 		"Me!"
 	],
@@ -16,22 +16,22 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.example.ExampleMod"
+			"com.ragnarok.Ragnarok"
 		],
 		"client": [
-			"com.example.ExampleModClient"
+			"com.ragnarok.RagnarokClient"
 		]
 	},
 	"mixins": [
-		"modid.mixins.json",
+		"ragnarok.mixins.json",
 		{
-			"config": "modid.client.mixins.json",
+			"config": "ragnarok.client.mixins.json",
 			"environment": "client"
 		}
 	],
 	"depends": {
 		"fabricloader": ">=0.16.14",
-		"minecraft": "~1.21.8",
+		"minecraft": "~1.21.10",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
