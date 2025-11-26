@@ -19,14 +19,12 @@ import java.util.UUID;
 public abstract class YggdrasilMinecraftSessionServiceMixin {
     @Shadow @Final private MinecraftClient client;
 
-    @Shadow @Final private URL joinUrl;
-
     @Inject(method = "joinServer", at = @At(value = "HEAD"), cancellable = true)
     private void joinServer(UUID profileId, String authenticationToken, String serverId, CallbackInfo ci) {
-        if (!AuthConfig.authString.isEmpty() && !AuthConfig.authServer.isEmpty() && !AuthConfig.uuid.isEmpty()) {
+        if (!AuthConfig.authString.isEmpty() && !AuthConfig.authServer.isEmpty()) {
             RagnarokRequest request = new RagnarokRequest();
             request.accessToken = authenticationToken;
-            request.selectedProfile = UUID.fromString(AuthConfig.uuid);
+            request.selectedProfile = profileId;
             request.serverId = serverId;
             request.authString = AuthConfig.authString;
             URL j = HttpAuthenticationService.constantURL(AuthConfig.authServer + "/session/minecraft/join");

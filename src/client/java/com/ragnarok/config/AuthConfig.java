@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 public class AuthConfig {
     public static String authString = "";
     public static String authServer = "";
-    public static String uuid = "";
+    public static String username = "";
 
     private static Path p;
     private static File f;
@@ -41,8 +41,8 @@ public class AuthConfig {
                     authString = split[1];
                 } else if (split[0].equals("authServer")) {
                     authServer = split[1];
-                } else if (split[0].equals("uuid")) {
-                    uuid = split[1];
+                } else if (split[0].equals("username")) {
+                    username = split[1];
                 }
             }
         } catch (IOException ignored) {
@@ -51,7 +51,7 @@ public class AuthConfig {
     }
 
     static void updateFile() {
-        String content = "authString=" + authString + "\n" + "authServer=" + authServer + "\n" + "uuid=" + uuid;
+        String content = "authString=" + authString + "\n" + "authServer=" + authServer + "\n" + "username=" + username;
         try {
             Files.write(f.toPath(), content.getBytes());
         } catch (IOException ignored) {
@@ -69,8 +69,8 @@ public class AuthConfig {
         updateFile();
     }
 
-    public static void setUUID(String s) {
-        uuid = s;
+    public static void setUsername(String s) {
+        username = s;
         updateFile();
     }
 }
