@@ -11,9 +11,10 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 
 public class AuthConfig {
-    public static String authString = "";
-    public static String authServer = "";
-    public static String username = "";
+    private static String authString = "";
+    private static String authServer = "";
+    private static String username = "";
+    private static Boolean initialized = false;
 
     private static Path p;
     private static File f;
@@ -48,6 +49,22 @@ public class AuthConfig {
         } catch (IOException ignored) {
             System.out.println("Failed to read");
         }
+        initialized = true;
+    }
+
+    public static String getAuthString() {
+        if (!initialized) load();
+        return authString;
+    }
+
+    public static String getAuthServer() {
+        if (!initialized) load();
+        return authServer;
+    }
+
+    public static String getUsername() {
+        if (!initialized) load();
+        return username;
     }
 
     static void updateFile() {

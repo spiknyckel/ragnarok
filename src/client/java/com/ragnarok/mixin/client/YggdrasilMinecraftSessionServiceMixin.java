@@ -21,13 +21,13 @@ public abstract class YggdrasilMinecraftSessionServiceMixin {
 
     @Inject(method = "joinServer", at = @At(value = "HEAD"), cancellable = true)
     private void joinServer(UUID profileId, String authenticationToken, String serverId, CallbackInfo ci) {
-        if (!AuthConfig.authString.isEmpty() && !AuthConfig.authServer.isEmpty()) {
+        if (!AuthConfig.getAuthString().isEmpty() && !AuthConfig.getAuthServer().isEmpty()) {
             RagnarokRequest request = new RagnarokRequest();
             request.accessToken = authenticationToken;
             request.selectedProfile = profileId;
             request.serverId = serverId;
-            request.authString = AuthConfig.authString;
-            URL j = HttpAuthenticationService.constantURL(AuthConfig.authServer + "/session/minecraft/join");
+            request.authString = AuthConfig.getAuthString();
+            URL j = HttpAuthenticationService.constantURL(AuthConfig.getAuthServer() + "/session/minecraft/join");
             this.client.post(j, request, Void.class);
             ci.cancel();
         }

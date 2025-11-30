@@ -55,8 +55,8 @@ public abstract class SessionMixin implements SessionExt {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(CallbackInfo ci) {
-        if (!AuthConfig.username.isEmpty()) {
-            updateSession(AuthConfig.username);
+        if (!AuthConfig.getUsername().isEmpty()) {
+            updateSession(AuthConfig.getUsername());
         } else {
             updateSession(username);
         }

@@ -27,13 +27,13 @@ public class RagnarokScreen extends Screen {
     protected void init() {
         this.username = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, 66, 200, 20, Text.literal("UUID"));
         this.username.setMaxLength(36);
-        this.username.setText(AuthConfig.username);
+        this.username.setText(AuthConfig.getUsername());
         this.authString = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, 66 + 37, 200, 20, Text.literal("Auth String"));
         this.authString.setMaxLength(128);
-        this.authString.setText(AuthConfig.authString);
+        this.authString.setText(AuthConfig.getAuthString());
         this.addSelectableChild(authString);
         this.authServer = new TextFieldWidget(this.textRenderer, this.width / 2 - 100, 66 + 37 * 2, 200, 20, Text.literal("Auth String"));
-        this.authServer.setText(AuthConfig.authServer);
+        this.authServer.setText(AuthConfig.getAuthServer());
         this.addSelectableChild(authServer);
         this.addSelectableChild(username);
         this.saveButton = this.addDrawableChild(
@@ -49,7 +49,7 @@ public class RagnarokScreen extends Screen {
         AuthConfig.setAuthServer(authServer.getText());
         assert client != null;
         SessionExt session = (SessionExt) client.getSession();
-        session.updateSession(AuthConfig.username);
+        session.updateSession(AuthConfig.getUsername());
         close();
     }
 
